@@ -68,15 +68,50 @@ public class RevesActionThread extends ActionThread
         }
     }
 
-    public void towersOfHanoi() {
+    // for k using k*(k+1)/2
+    public static int computeK(int n) {
+        int k = 1;
+        while (k * (k + 1) / 2 < n) {
+            k++;
+        }
+        return k;
+    }
 
+    // for 3 pillar model
+    public void towersOfHanoi(int n, Pole a, Pole c, Pole b) {
+        if (n == 0) {
+            return;
+        }
+
+        // Move n-1 disks from a to c using b as temp
+        towersOfHanoi(n - 1, a, b, c);
+
+        moveDisk(a, c);
+
+        towersOfHanoi(n - 1, b, c, a);
+    }
+
+    // for 4 pillar model
+    public void reves(int n, Pole a, Pole b, Pole c, Pole d) {
+        if (n == 0) return;
+        if (n == 1) {
+            moveDisk(a, d);
+            return;
+        }
+
+        int k = computeK(n);
+        int m = n - k;
+
+        reves(m, a, d, c, b);
+        towersOfHanoi(k, a, d, c); // solves hanoi inside reves
+        reves(m, b, a, c, d);
     }
         
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
-        moveDisk(a, b);
+        reves(disks, a, b, c, d);
     }
 
     /**

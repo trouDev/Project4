@@ -56,6 +56,19 @@ public class RevesActionThread extends ActionThread
         moveString = "";
 
         // ADD INITIALIZATION CODE HERE
+        // Initialize 4 poles
+        a = new Pole("A", disks);
+        b = new Pole("B", disks);
+        c = new Pole("C", disks);
+        d = new Pole("D", disks);
+
+        for( int i = disks; i > 0; i--) {
+            a.addDisk(new Disk(i));
+
+        }
+    }
+
+    public void towersOfHanoi() {
 
     }
         
@@ -63,6 +76,7 @@ public class RevesActionThread extends ActionThread
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
+        moveDisk(a, b);
     }
 
     /**
@@ -76,6 +90,8 @@ public class RevesActionThread extends ActionThread
         Disk toMove = null;
         
         // ADD CODE HERE TO MOVE A DISK FROM ONE POLE TO THE OTHER
+        toMove = from.removeDisk();
+        to.addDisk(toMove);
 
         movesMade++;
         moveString = "Move #" + movesMade 
